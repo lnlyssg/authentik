@@ -122,6 +122,19 @@ environment:
     GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'"
 ```
 
+If your Grafana instance is behind a reverse proxy you should also set the following:
+
+```
+    GF_SERVER_ROOT_URL: "https://grafana.company"
+```
+
+If you encounter an infinite loop or receive an error indicating that Grafana cannot retrieve the token, please update the two environment variables listed below. Use the local IP address of Authentik instead of the public domain:
+
+```
+    GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "http://127.0.0.1:380/application/o/token/"
+    GF_AUTH_GENERIC_OAUTH_API_URL: "http://127.0.0.1:380/application/o/userinfo/"
+```
+
   </TabItem>
   <TabItem value="standalone">
 If you are using a config-file instead, you have to set these options:
